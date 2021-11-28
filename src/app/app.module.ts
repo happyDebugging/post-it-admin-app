@@ -25,12 +25,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DbFunctionService } from './shared/services/db-functions.service';
 import { NavComponent } from './nav/nav.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostsComponent,
-    NavComponent
+    NavComponent,
+    AnalyticsComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
