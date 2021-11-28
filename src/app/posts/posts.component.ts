@@ -174,13 +174,12 @@ export class PostsComponent implements OnInit {
             postsArray.push({ ...response[key], id: key })
           }
         }
-        console.log(postsArray)
         return postsArray;
       }))
       .subscribe(
         (res: any) => {
           if ((res != null) || (res != undefined)) {
-            console.log(res)
+            //console.log(res)
             const responseData = new Array<PostItDetails>(...res);
 
             for (const data of responseData) {
@@ -198,9 +197,6 @@ export class PostsComponent implements OnInit {
                 resObj.Color = 'lime lighten-4';
               else
                 resObj.Color = 'light-green lighten-4';
-
-
-              console.log('Id: '+resObj.id)
 
               if (resObj.JobSearchType == this.jobType)
                 this.flagJobType = true;
