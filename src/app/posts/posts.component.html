@@ -1,0 +1,146 @@
+<div #topOfPage class="brown lighten-5">
+
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-description class="center">
+                    <h2 class="center">Αναζήτηση με βάση λέξεις-κλειδιά</h2>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="container">
+
+                <div class="center">
+
+                    <div class="row">
+                        <div class="col s12 m6 l4">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Είδος Αγγελίας</mat-label>
+                                <mat-select [(ngModel)]="jobType">
+                                    <mat-option *ngFor="let jobSearchType of jobSearchTypes" [value]="jobSearchType"
+                                        (click)="refreshResults()">
+                                        {{jobSearchType}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col s12 m6 l4">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Επάγγελμα</mat-label>
+                                <input matInput [(ngModel)]="job" [matAutocomplete]="autoJobName"
+                                    (ngModelChange)="applyJobFilter($event)" />
+                                <button mat-button *ngIf="job" matSuffix mat-icon-button aria-label="Clear"
+                                    (click)="job=''; refreshResults()">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-autocomplete #autoJobName="matAutocomplete">
+                                    <!-- <mat-optgroup *ngFor="let group of jobNamesList" [label]="group.Category"> -->
+                                    <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName"
+                                        (click)="refreshResults()">
+                                        {{ job.JobName }}
+                                    </mat-option>
+                                    <!-- </mat-optgroup> -->
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col s12 m6 l4">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Περιοχή</mat-label>
+                                <input matInput [(ngModel)]="place" [matAutocomplete]="autoPlace"
+                                    (ngModelChange)="applyPlacesFilter($event)" />
+                                <button mat-button *ngIf="place" matSuffix mat-icon-button aria-label="Clear"
+                                    (click)="place=''; refreshResults()">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-autocomplete #autoPlace="matAutocomplete">
+                                    <mat-option *ngFor="let workingPlace of filteredWorkingPlaces"
+                                        [value]="workingPlace.Place" (click)="refreshResults()">
+                                        {{ workingPlace.Place }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+</div>
+
+<div class="section lime lighten-5 main-section">
+    <div class="container">
+
+        <div *ngIf="posts.length === 0 && !isLoadingResults">
+            <br><br>
+            <h2 class="center">Δεν βρέθηκε αποτέλεσμα που να αντιστοιχεί στους όρους αναζήτησης.</h2>
+            <br>
+        </div>
+
+        <div class="row">
+            <div *ngFor="let post of posts; let i = index;">
+                <div class="col s12 m6 l4">
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card"
+                                [ngStyle]="{'background-color':post.Color === 'lime lighten-4' ? '#f0f4c3' : '#dcedc8' }">
+                                <div class="card-content black-text">
+                                    <span class="card-title">
+                                        <div class="row">
+                                            <div class="col s11">
+                                                <h3>{{ post.JobName }}</h3>
+                                            </div>
+                                            <div class="col s1">
+                                                <a (click)="OnDeletePostFromDb(post.id)">
+                                                    <mat-icon [inline]="true">clear</mat-icon>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <span class="black-text">
+                                        {{ post.Notes }}
+                                    </span>
+                                </div>
+                                <div class="card-action">
+                                    <mat-tab-group>
+                                        <mat-tab label="Περιοχή">
+                                            <div class="center">
+                                                {{ post.Place }}
+                                            </div>
+                                        </mat-tab>
+                                        <mat-tab label="Email">
+                                            <div class="center">
+                                                {{ post.Email }}
+                                            </div>
+                                        </mat-tab>
+                                        <mat-tab label="Τηλ.">
+                                            <div class="center">
+                                                {{ post.Phone }}, {{ post.UserName }}
+                                            </div>
+                                        </mat-tab>
+                                    </mat-tab-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- <mat-paginator class="lime lighten-5" [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+      </mat-paginator> -->
+
+    </div>
+
+    <a *ngIf="posts.length > 0 && !isLoadingResults" class="waves-effect waves-light btn scrollButton teal"
+        (click)="scrollToTopOfPage(topOfPage)">Μεταβαση στην κορυφη</a>
+
+    <!-- <a class="sticky" (click)="scrollToTopOfPage(topOfPage)"><mat-icon [inline]="true">keyboard_arrow_up</mat-icon></a> -->
+
+</div>
