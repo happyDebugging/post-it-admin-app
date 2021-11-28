@@ -110,7 +110,7 @@
   }
   
   mat-expansion-panel {
-    background-color: #f1f8e9 !important;
+    /* background-color: #f1f8e9 !important; */
   }
   
   mat-panel-description {

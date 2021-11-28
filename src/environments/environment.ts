@@ -9,7 +9,8 @@ export const environment = {
   postItAdminRepoURL: 'https://post-it-admin-db-default-rtdb.europe-west1.firebasedatabase.app',
 
   jobNamesTable: '/jobNames.json',
-  workingPlacesTable: '/workingPlaces.json'
+  workingPlacesTable: '/workingPlaces.json',
+  issuesTable: '/issues.json',
 };
 
 /*

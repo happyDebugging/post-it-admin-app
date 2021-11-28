@@ -1,1 +1,42 @@
-<p>comments works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+
+            <br><br>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Θέμα</mat-label>
+                <input matInput placeholder="Θέμα" [(ngModel)]="newIssueTitle" [ngModelOptions]="{standalone: true}"
+                    ngDefaultControl required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Περιγραφή προβλήματος</mat-label>
+                <textarea matInput placeholder="Περιγραφή προβλήματος" [(ngModel)]="newIssueDescription"
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl required maxlength="500"></textarea>
+            </mat-form-field>
+
+            <a class="waves-effect waves-light btn" (click)="postIssueToDb()">Καταγραφη</a>
+
+            <br><br><br><br>
+
+            <table class="striped highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>α/α</th>
+                        <th>Θέμα</th>
+                        <th>Περιγραφή</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let issue of issues; let i = index;">
+                        <td>{{i}}</td>
+                        <td>{{issue.Title}}</td>
+                        <td>{{issue.Description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

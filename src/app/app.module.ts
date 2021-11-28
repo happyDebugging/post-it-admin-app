@@ -27,6 +27,7 @@ import { DbFunctionService } from './shared/services/db-functions.service';
 import { NavComponent } from './nav/nav.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { CommentsComponent } from './comments/comments.component';
+import { AdminDbFunctionService } from './shared/services/admin-db-functions.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { CommentsComponent } from './comments/comments.component';
     CdkAccordionModule
   ],
   providers: [
-    DbFunctionService
+    DbFunctionService,
+    AdminDbFunctionService
   ],
   bootstrap: [AppComponent]
 })
