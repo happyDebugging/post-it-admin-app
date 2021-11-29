@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { map } from 'rxjs/operators';
+import { ContactDetails } from '../shared/models/contact-details.model';
 import { PostItDetails } from '../shared/models/post-it-details.model';
+import { AdminDbFunctionService } from '../shared/services/admin-db-functions.service';
 import { DbFunctionService } from '../shared/services/db-functions.service';
 
 @Component({
@@ -12,13 +14,15 @@ import { DbFunctionService } from '../shared/services/db-functions.service';
 export class AnalyticsComponent implements OnInit {
 
   posts: PostItDetails[] = [];
+  userMessages: ContactDetails[] = [];
   isLoadingResults: boolean = false;
   getPosts: Subscription = new Subscription;
 
-  constructor(private dbFunctionService: DbFunctionService) { }
+  constructor(private dbFunctionService: DbFunctionService, private adminDbFunctionService: AdminDbFunctionService) { }
 
   ngOnInit(): void {
     this.onGetPosts();
+    this.onGetUserMessages();
   }
 
   onGetPosts() {
@@ -59,6 +63,49 @@ export class AnalyticsComponent implements OnInit {
               this.posts.push(resObj);
 
             //console.log(this.posts);
+          }
+          this.isLoadingResults = false;
+        }},
+        (err: any) => {
+          //console.log(err);
+          this.isLoadingResults = false;
+        }
+      );
+  }
+
+  onGetUserMessages() {
+    this.isLoadingResults = true;
+
+    this.getPosts = this.adminDbFunctionService.getUserMessagesFromAdminDb()
+      .pipe(map((response: any) => {
+        const messagesArray: PostItDetails[] = [];
+
+        for (const key in response) {
+          if (response.hasOwnProperty(key)) {
+            messagesArray.push({ ...response[key], id: key })
+          }
+        }
+        console.log(messagesArray)
+        return messagesArray;
+      }))
+      .subscribe(
+        (res: any) => {
+          if ((res != null) || (res != undefined)) {
+            console.log(res)
+            const responseData = new Array<ContactDetails>(...res);
+
+            for (const data of responseData) {
+              const resObj = new ContactDetails();
+
+              resObj.id = data.id;
+              resObj.Type = data.Type;
+              resObj.Title = data.Title;
+              resObj.Description = data.Description;
+              resObj.Email = data.Email;
+
+              this.userMessages.push(resObj);
+
+            //console.log(this.userMessages);
           }
           this.isLoadingResults = false;
         }},

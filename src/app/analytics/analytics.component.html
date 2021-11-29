@@ -1,19 +1,40 @@
 <div class="container">
+  <div class="row">
+
+    <br><br>
+
     <div class="row">
-        <div class="col">
-
-            <br><br>
-
-            <div class="row">
-                <div class="col s12">
-                  <div class="card-panel teal">
-                    <span class="white-text">
-                         Σύνολο Αναρτήσεων: {{posts.length}}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
+      <div class="col s3">
+        <div class="card-panel teal">
+          <span class="white-text">
+            Σύνολο Αναρτήσεων: {{posts.length}}
+          </span>
         </div>
+      </div>
     </div>
+
+    <br><br><br><br>
+
+    <h2>Μηνύματα χρηστών</h2>
+
+    <table class="striped highlight responsive-table">
+      <thead class="grey lighten-2">
+        <tr>
+          <th>α/α</th>
+          <th>Κατηγορία</th>
+          <th>Θέμα</th>
+          <th>Περιγραφή</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let message of userMessages; let i = index;">
+          <td>{{i}}</td>
+          <td>{{message.Type}}</td>
+          <td>{{message.Title}}</td>
+          <td>{{message.Description}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
 </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AppIssues } from '../models/app-issues.model';
+import { ContactDetails } from '../models/contact-details.model';
 
 @Injectable()
 export class AdminDbFunctionService {
@@ -24,34 +25,12 @@ export class AdminDbFunctionService {
         return this.http.get<AppIssues>(environment.postItAdminRepoURL + environment.issuesTable);
     }
 
-    // getJobsListFromAdminDb() {
-    //     // let options: any = {
-    //     //     //params: {BoardId: boardId, SerialNumber: serialNumber}, 
-    //     //     observe: 'response'
-    //     // }
-    //     return this.http.get<string>(environment.postItAdminRepoURL + environment.jobNamesTable);
-    // }
-
-    // getWorkingPlacesListFromAdminDb() {
-    //     // let options: any = {
-    //     //     //params: {BoardId: boardId, SerialNumber: serialNumber}, 
-    //     //     observe: 'response'
-    //     // }
-    //     return this.http.get<string>(environment.postItAdminRepoURL + environment.workingPlacesTable);
-    // }
-
-    // deletePostsFromDb(id: string) {
-    //     // key = '-MpZDsQS7qi_PIv4toUL';
-    //     console.log(id)
-    //     const url = 'https://post-it-4f3cb-default-rtdb.europe-west1.firebasedatabase.app/posts/' + id + '.json';
-    //     const httpOptions = {
-    //         headers: new HttpHeaders({
-    //             'Content-Type': 'application/json',
-    //             Authorization: 'my-auth-token'
-    //         })
-    //     };
-
-    //     return this.http.delete(url, httpOptions);
-    // }
+    getUserMessagesFromAdminDb() {
+        // let options: any = {
+        //     //params: {BoardId: boardId, SerialNumber: serialNumber}, 
+        //     observe: 'response'
+        // }
+        return this.http.get<ContactDetails>(environment.postItAdminRepoURL + environment.contactMessagesTable);
+    }
 
 }
