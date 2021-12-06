@@ -14,6 +14,7 @@ import { DbFunctionService } from '../shared/services/db-functions.service';
 export class AnalyticsComponent implements OnInit {
 
   posts: PostItDetails[] = [];
+  dbUsage: number = 0;
   userMessages: ContactDetails[] = [];
   isLoadingResults: boolean = false;
   getPosts: Subscription = new Subscription;
@@ -64,6 +65,7 @@ export class AnalyticsComponent implements OnInit {
 
             //console.log(this.posts);
           }
+          this.calculateDbUsage();
           this.isLoadingResults = false;
         }},
         (err: any) => {
@@ -114,6 +116,12 @@ export class AnalyticsComponent implements OnInit {
           this.isLoadingResults = false;
         }
       );
+  }
+
+  calculateDbUsage() {
+    const approximatePostSpace = '0.8'; //kB
+    const usage =((+(approximatePostSpace)*this.posts.length)/1000000).toString();
+    this.dbUsage = +usage;
   }
 
   ngOnDestroy() {
