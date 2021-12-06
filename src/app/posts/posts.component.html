@@ -75,6 +75,12 @@
 <div class="section main-section">
     <div class="container">
 
+        <div *ngIf="isLoadingResults">
+            <br><br>
+            <h2 class="center">Περιμένετε...</h2>
+            <br>
+        </div>
+
         <div *ngIf="posts.length === 0 && !isLoadingResults">
             <br><br>
             <h2 class="center">Δεν βρέθηκε αποτέλεσμα που να αντιστοιχεί στους όρους αναζήτησης.</h2>
