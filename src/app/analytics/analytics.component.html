@@ -13,7 +13,7 @@
       </div>
 
       <div class="col s4">
-        <div class="card-panel teal">
+        <div class="card-panel" [ngStyle]="{'background-color': dbUsage >= 90 ? '#b71c1c' : '#009688' }">
           <span class="white-text">
             <h2>Όγκος δεδομένων βάσης: {{dbUsage | number : '1.5-5'}}%</h2>
           </span>
