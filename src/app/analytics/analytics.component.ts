@@ -119,9 +119,10 @@ export class AnalyticsComponent implements OnInit {
   }
 
   calculateDbUsage() {
-    const approximatePostSpace = '0.8'; //kB
+    const approximatePostSpace = '0.65'; //kB
     const usage =((+(approximatePostSpace)*this.posts.length)/1000000).toString();
     this.dbUsage = +usage;
+    //this.dbUsage = (+(approximatePostSpace)*this.posts.length);
   }
 
   ngOnDestroy() {
